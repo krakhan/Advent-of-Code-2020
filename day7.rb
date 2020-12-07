@@ -20,9 +20,10 @@ def containing_bag_count(rules, target_containing_counts, target_bag)
 			
 	count = 0
     rules[bag].each do |b|
-	  count += target_containing_counts[b.first] < 0 ? b[1] * bag_count_rec.call(b.first) : target_containing_counts[b.first]
+	  target_count = target_containing_counts[b.first] < 0 ? b[1] * bag_count_rec.call(b.first) : target_containing_counts[b.first]
 	  
-	  target_containing_counts[b] = count
+	  target_containing_counts[b.first] = target_count
+	  count += target_count
     end
 	
 	count
