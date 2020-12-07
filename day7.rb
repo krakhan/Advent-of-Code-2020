@@ -36,7 +36,9 @@ BAG_RULES.keys.each { |k| shiny_gold_containing_counts[k] = -1 }
 puts "#{containing_bag_count(BAG_RULES, shiny_gold_containing_counts, :"shiny gold")}"
 
 # Part 2;
-def total_bag_count(rules, bag)
-  rules[bag].empty? ? 0 : rules[bag].map { |b|  b[1] * (1 + total_bag_count(rules, b.first)) }.reduce(:+)
+def total_bag_count(rules, root)
+  bag_count_rec = -> (bag) { rules[bag].map { |b|  b[1] * (1 + bag_count_rec.call(b.first)) }.reduce(0, :+) }
+
+  bag_count_rec.call(root)
 end
 puts "#{total_bag_count(BAG_RULES, :"shiny gold")}"
