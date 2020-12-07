@@ -28,7 +28,7 @@ def containing_bag_count(rules, target_containing_counts, target_bag)
 	count
   end
   
-  rules.keys.reject { |k| k == target_bag }.map { |k| bag_count_rec.call(k) }.select { |c| c > 0 }.length
+  rules.keys.select { |k| k != target_bag && bag_count_rec.call(k) > 0 }.length
 end
 
 shiny_gold_containing_counts = {}
