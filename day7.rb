@@ -14,9 +14,8 @@ end
 
 # Part 1
 def containing_bag_count(rules, target_bag)
-  used = {}
   counts = {}
-  rules.keys.each { |k| counts[k] = 0; used[k] = false }
+  rules.keys.each { |k| counts[k] = -1 }
   
   bag_count_rec = lambda do |bag|
     return 0 if rules[bag].empty?
@@ -24,10 +23,9 @@ def containing_bag_count(rules, target_bag)
 		
 	count = 0
     rules[bag].each do |b|
-	  count += used[b.first] ? count[b.first] : b[1] * bag_count_rec.call(b.first)
+	  count += counts[b.first] < 0 ? b[1] * bag_count_rec.call(b.first) : counts[b.first]
 	  
 	  counts[b] = count
-	  used[b] = true
     end
 	
 	count
