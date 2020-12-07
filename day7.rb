@@ -41,9 +41,7 @@ def total_bag_count(rules, root)
     return 0 if rules[bag].empty?
 	
 	count = 0
-	rules[bag].each { |b| 
-	  count += b[1] * (1 + bag_count_rec.call(b.first)) 
-	}
+	rules[bag].each { |b| count += b[1] * (1 + bag_count_rec.call(b.first)) }
 	
 	count
   end
